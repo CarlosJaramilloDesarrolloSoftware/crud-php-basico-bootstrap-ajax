@@ -8,7 +8,7 @@ if(isset($_GET["funcion"])){
     $libro = new LibroModel();
     switch($funcion){
         case "registro" :
-            if(isset($_POST["id"])){
+            if(isset($_POST["id"]) && $_POST["id"] != "" && $_POST["id"] != null){
                 $libro->setId($_POST["id"]);
                 $libro->setNombre($_POST["nombre"]);
                 $libro->setAutor($_POST["autor"]);
@@ -16,7 +16,15 @@ if(isset($_GET["funcion"])){
                 $libro->setPaginas($_POST["paginas"]);
                 $libro->setEditorial($_POST["editorial"]);
                 $actualizar = $libro->actualizar();
-                echo $actualizar;
+                if($actualizar){
+                    $respuesta = 
+                    [
+                        "success" => "ok",
+                        "message" => "Registro actualizado con exito",
+                        "data" => []
+                    ];
+                    echo json_encode($respuesta);
+                }
 
             }else{
                 $libro->setNombre($_POST["nombre"]);
@@ -24,16 +32,40 @@ if(isset($_GET["funcion"])){
                 $libro->setAnioEdicion($_POST["anioEdicion"]);
                 $libro->setPaginas($_POST["paginas"]);
                 $libro->setEditorial($_POST["editorial"]);
-
                 $guardar = $libro->insertar();
-                echo $guardar;
+                if($guardar){
+                    $respuesta = 
+                    [
+                        "success" => "ok",
+                        "message" => "Registro guardado con exito",
+                        "data" => []
+                    ];
+                    echo json_encode($respuesta);
+                }
             }
                 
             return;
             break;
+        
+        case "buscar":
+            if(isset($_POST["id"])){
+                $libro->setId($_POST["id"]);
+                $consulta = $libro->consultar();
+                if($consulta){
+                    $respuesta = 
+                    [
+                        "success" => "ok",
+                        "message" => "Libro encontrado",
+                        "data" => [$consulta]
+                    ];
+                    echo json_encode($respuesta);
+                }
+            }
+            return;
+            break;
+
 
         case "listar" :
-            $libro = new LibroModel();
             $listaLibros = $libro->listar();
             $tituloPagina = "Lista libros";
             include_once("../views/common/cabecera.php");
@@ -42,6 +74,7 @@ if(isset($_GET["funcion"])){
             include_once("../views/libro/index.php");
             include_once("../views/common/pie.php");
             break;
+
 
 
         case "eliminar":
