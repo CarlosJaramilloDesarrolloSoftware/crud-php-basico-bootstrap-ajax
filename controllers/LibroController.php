@@ -5,22 +5,20 @@ require_once("../models/LibroModel.php");
 
 if(isset($_GET["funcion"])){
     $funcion = $_GET["funcion"];
-
+    $libro = new LibroModel();
     switch($funcion){
-        case "listar" :
-            $libro = new LibroModel();
-            $listaLibros = $libro->listar();
-            $tituloPagina = "Lista libros";
-            include_once("../views/common/cabecera.php");
-            include_once("../views/common/alerta.php");
-            include_once("../views/common/menu.php");
-            include_once("../views/libro/listar.php");
-            include_once("../views/common/pie.php");
-            break;
+        case "registro" :
+            if(isset($_POST["id"])){
+                $libro->setId($_POST["id"]);
+                $libro->setNombre($_POST["nombre"]);
+                $libro->setAutor($_POST["autor"]);
+                $libro->setAnioEdicion($_POST["anioEdicion"]);
+                $libro->setPaginas($_POST["paginas"]);
+                $libro->setEditorial($_POST["editorial"]);
+                $actualizar = $libro->actualizar();
+                echo $actualizar;
 
-        case "nuevo" :
-            if(isset($_POST["insertar"])){
-                $libro = new LibroModel();
+            }else{
                 $libro->setNombre($_POST["nombre"]);
                 $libro->setAutor($_POST["autor"]);
                 $libro->setAnioEdicion($_POST["anioEdicion"]);
@@ -28,68 +26,23 @@ if(isset($_GET["funcion"])){
                 $libro->setEditorial($_POST["editorial"]);
 
                 $guardar = $libro->insertar();
-                if($guardar){
-                    $_SESSION["alert"] = ["tipo" => "success", "mensaje" => "Libro insertado con éxito"];
-                    header('Location: LibroController.php');
-                }else{
-                    $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "Libro no insertado"];
-                }
-            }else{
-                $tituloPagina = "Nuevo libro";
-                include_once("../views/common/cabecera.php");
-                include_once("../views/common/alerta.php");
-                include_once("../views/common/menu.php");
-                include_once("../views/libro/nuevo.php");
-                include_once("../views/common/pie.php");
+                echo $guardar;
             }
+                
+            return;
             break;
 
-        case "actualizar":
-            if(isset($_GET["id"])){
-                $id = $_GET["id"];
-                $libro = new LibroModel();
-                $libro->setId($id);
-                if(isset($_POST["actualizar"])){
-                    $libro->setNombre($_POST["nombre"]);
-                    $libro->setAutor($_POST["autor"]);
-                    $libro->setAnioEdicion($_POST["anioEdicion"]);
-                    $libro->setPaginas($_POST["paginas"]);
-                    $libro->setEditorial($_POST["editorial"]);
-
-                    $actualizar = $libro->actualizar();
-                    if($actualizar){
-                        $_SESSION["alert"] = ["tipo" => "success", "mensaje" => "Libro actualizado con éxito"];
-                        header('Location: LibroController.php');
-                    }else{
-                        $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "Libro no actualizado"];
-                    }
-                }else{
-                    $libroActualizar =  $libro->consultar();
-                    if($libroActualizar){
-                        $libro->setId($libroActualizar["id"]);
-                        $libro->setNombre($libroActualizar["nombre"]);
-                        $libro->setAutor($libroActualizar["autor"]);
-                        $libro->setAnioEdicion($libroActualizar["anio_edicion"]);
-                        $libro->setPaginas($libroActualizar["paginas"]);
-                        $libro->setEditorial($libroActualizar["editorial"]);
-                        
-                        $tituloPagina = "Actualizar el libro: " . $libro->getNombre();
-                        include_once("../views/common/cabecera.php");
-                        include_once("../views/common/alerta.php");
-                        include_once("../views/common/menu.php");
-                        include_once("../views/libro/actualizar.php");
-                        include_once("../views/common/pie.php");
-
-                    } else {
-                        $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "No hay libro para actualizar"];
-                        header('Location: LibroController.php');
-                    }
-                }
-            }else{
-                $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "No se a quien actualizar"];
-                header('Location: LibroController.php');
-            }
+        case "listar" :
+            $libro = new LibroModel();
+            $listaLibros = $libro->listar();
+            $tituloPagina = "Lista libros";
+            include_once("../views/common/cabecera.php");
+            include_once("../views/common/alerta.php");
+            include_once("../views/common/menu.php");
+            include_once("../views/libro/index.php");
+            include_once("../views/common/pie.php");
             break;
+
 
         case "eliminar":
             if(isset($_GET["id"])){
