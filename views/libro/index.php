@@ -39,6 +39,13 @@
         </div>
 
         <div class="col-md-8">
+           
+            <!-- Boton para refrescar con JS -->
+            <button id="refrescar1" onClick="refrescar1();" class="btn btn-info">Refrescar tabla 1</button>
+            
+            <!-- Boton para refrescar con JQuery + JS -->
+            <button id="refrescar2" class="btn btn-info">Refrescar tabla 2</button>
+            <br>
             <table class="table">
                 <thead>
                     <tr>

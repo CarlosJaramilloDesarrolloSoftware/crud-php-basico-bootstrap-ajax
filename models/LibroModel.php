@@ -75,7 +75,7 @@ class LibroModel{
 
     public function listar(){
         $consultaDeBaseDeDatos = $this->db->query("SELECT * FROM libro");
-        $listaDeBaseDeDatos = $consultaDeBaseDeDatos->fetchAll();
+        $listaDeBaseDeDatos = $consultaDeBaseDeDatos->fetchAll(PDO::FETCH_ASSOC);
         return $listaDeBaseDeDatos;
     }
 

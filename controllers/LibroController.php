@@ -83,7 +83,9 @@ if(isset($_GET["funcion"])){
                 "data" => [$listaLibros]
             ];
             echo json_encode($respuesta);
+            return;
             break;
+            
 
         case "eliminar":
             if(isset($_POST["id"])){
