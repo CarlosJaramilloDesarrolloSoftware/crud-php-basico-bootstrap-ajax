@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <header>
-                        <h2>Formulario: <b><span id="titulo_formulario">Nuevo libro</span></b></h2>
+                        <h2 class="btn_actualizar">Formulario: <b><span id="titulo_formulario">Nuevo libro</span></b></h2>
                     </header>
 
                     <form action="" method="post">
@@ -52,24 +52,9 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="cuerpo">
 
-                    <?php
-                    // El siguiente código muestra la lista generada por PHP 
-                    /*foreach ($listaLibros as $libro) { ?>
-                        
-                        <tr>
-                            <th scope="row"><?= $libro->getId() ?></th>
-                            <td><?= $libro->getNombre() ?></td>
-                            <td><?= $libro->getAutor() ?></td>
-                            <td><?= $libro->getAnioEdicion() ?></td>
-                            <td><?= $libro->getPaginas() ?></td>
-                            <td><?= $libro->getEditorial(); ?></td>
-                            <td><button registro_id="<?= $libro->getId() ?>" class="btn btn-warning btn_actualizar">Actualizar</button></td>
-                            <td><button registro_id="<?= $libro->getId() ?>" class="btn btn-danger btn_eliminar">Eliminar</button></td>
-                        </tr>
 
-                    <?php }  */ ?>
 
                 </tbody>
             </table>

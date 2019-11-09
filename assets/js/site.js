@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     function listar(){
         console.log("Voy a listar");
         $.ajax({
@@ -24,25 +23,25 @@ $(document).ready(function(){
                     //El siguiente código recorre los elementos de cada libro
                     
                     for ( dato in resultado.data[0][libro] ) {
+                        id = resultado.data[0][libro]["id"];
                         nombre = resultado.data[0][libro]["nombre"];
                         autor = resultado.data[0][libro]["autor"];
                         paginas = resultado.data[0][libro]["paginas"];
                         editorial = resultado.data[0][libro]["editorial"];
                         anio_edicion = resultado.data[0][libro]["anio_edicion"];
                     }
-                    /*
-                    console.log("tr");
-                    console.log("td");
-                    console.log(nombre);
-                    console.log("/td");
-                    console.log("td");
-                    console.log(autor);
-                    console.log("/td");
-                    console.log("/tr");
-                    */
 
-                    output += "<<tr - td - " + nombre + " /td - td - " + autor + " /td /tr >>>";
+                    output += "<tr>";
+                    output += "<th scope='row'>" + id + "</th>";
+                    output += "<td>" + nombre + "</td>"
+                    output += "<td>" + anio_edicion + "</td>";
+                    output += "<td>" + paginas + "</td>";
+                    output += "<td>" + editorial + "</td>";
+                    output += "<td><button registro_id='" + id +"' class='btn btn-warning btn_actualizar'>Actualizar</button></td>";
+                    output += "<td><button registro_id='" + id +"' class='btn btn-danger btn_eliminar'>Eliminar</button></td>";
+                    output += "</tr>";
                 }
+                $("#cuerpo").html(output);
                 console.log(output);
             }
         });
@@ -78,7 +77,11 @@ $(document).ready(function(){
         listar();
     });
 
+    $( "td" ).on( "click", "button", function() {
+        console.log( $( this ).text() );
+      });
     $(".btn_actualizar").click(function(){
+        alert("Holaaa");
         let elemento_html = $(this);
         let registro_id = elemento_html.attr("registro_id");
 
