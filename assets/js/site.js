@@ -9,20 +9,39 @@ $(document).ready(function(){
             success: function(result){
                 // La función JSON.parse convierte de JSON a JavaScript
                 let resultado = JSON.parse(result);
-                console.log(resultado.data[0][0]["nombre"]);
+                //console.log(resultado.data[0][0]["nombre"]);
                 var output = "";
-                for ( user in resultado.data[0] ) {
 
-                    output += "<h2>Detalles del usuario " + resultado.data[0][user].ID + "</h2>";
-       
-                    //recorremos los valores de cada usuario
-                    for ( userdata in resultado.data[0][user] ) {
-       
-                      output += '<ul>';
-                      output += '<li>' + userdata + ': ' + resultado.data[0][user][userdata] + "</li>";
-                      output += '</ul>';
-       
+                //recorremos los libros
+                for ( libro in resultado.data[0] ) {
+                    
+                    var nombre;
+                    var autor;
+                    var paginas;
+                    var editorial;
+                    var anio_edicion;
+
+                    //El siguiente código recorre los elementos de cada libro
+                    
+                    for ( dato in resultado.data[0][libro] ) {
+                        nombre = resultado.data[0][libro]["nombre"];
+                        autor = resultado.data[0][libro]["autor"];
+                        paginas = resultado.data[0][libro]["paginas"];
+                        editorial = resultado.data[0][libro]["editorial"];
+                        anio_edicion = resultado.data[0][libro]["anio_edicion"];
                     }
+                    /*
+                    console.log("tr");
+                    console.log("td");
+                    console.log(nombre);
+                    console.log("/td");
+                    console.log("td");
+                    console.log(autor);
+                    console.log("/td");
+                    console.log("/tr");
+                    */
+
+                    output += "<<tr - td - " + nombre + " /td - td - " + autor + " /td /tr >>>";
                 }
                 console.log(output);
             }

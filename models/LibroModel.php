@@ -76,24 +76,6 @@ class LibroModel{
     public function listar(){
         $consultaDeBaseDeDatos = $this->db->query("SELECT * FROM libro");
         $listaDeBaseDeDatos = $consultaDeBaseDeDatos->fetchAll();
-
-        // El siguiente código se usa si la lista va a ser gestionada por PHP
-        /*
-        $listaDondeGuardarObjetosDeTipoLibro = [];
-
-        foreach ($listaDeBaseDeDatos as $filaParaCrearUnLibro) {
-            $objetoLibro = new LibroModel();
-            $objetoLibro->setId($filaParaCrearUnLibro["id"]);
-            $objetoLibro->setNombre($filaParaCrearUnLibro["nombre"]);
-            $objetoLibro->setAutor($filaParaCrearUnLibro["autor"]);
-            $objetoLibro->setPaginas($filaParaCrearUnLibro["paginas"]);
-            $objetoLibro->setEditorial($filaParaCrearUnLibro["editorial"]);
-            $objetoLibro->setAnioEdicion($filaParaCrearUnLibro["anio_edicion"]);
-
-            $listaDondeGuardarObjetosDeTipoLibro[] = $objetoLibro;
-        }
-        return $listaDondeGuardarObjetosDeTipoLibro;
-        */
         return $listaDeBaseDeDatos;
     }
 

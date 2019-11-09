@@ -66,7 +66,6 @@ if(isset($_GET["funcion"])){
 
 
         case "listar" :
-            $listaLibros = $libro->listar();
             $tituloPagina = "Lista libros";
             include_once("../views/common/cabecera.php");
             include_once("../views/common/alerta.php");
