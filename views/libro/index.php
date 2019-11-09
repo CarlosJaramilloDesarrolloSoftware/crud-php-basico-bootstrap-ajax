@@ -54,7 +54,9 @@
                 </thead>
                 <tbody>
 
-                    <?php foreach ($listaLibros as $libro) { ?>
+                    <?php
+                    // El siguiente código muestra la lista generada por PHP 
+                    /*foreach ($listaLibros as $libro) { ?>
                         
                         <tr>
                             <th scope="row"><?= $libro->getId() ?></th>
@@ -67,7 +69,7 @@
                             <td><button registro_id="<?= $libro->getId() ?>" class="btn btn-danger btn_eliminar">Eliminar</button></td>
                         </tr>
 
-                    <?php }  ?>
+                    <?php }  */ ?>
 
                 </tbody>
             </table>

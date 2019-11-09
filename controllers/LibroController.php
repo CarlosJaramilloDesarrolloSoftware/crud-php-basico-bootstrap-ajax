@@ -75,22 +75,50 @@ if(isset($_GET["funcion"])){
             include_once("../views/common/pie.php");
             break;
 
-
+        case "listarajax" :
+            $listaLibros = $libro->listar();
+            $respuesta = 
+            [
+                "success" => "ok",
+                "message" => "Lista de libros",
+                "data" => [$listaLibros]
+            ];
+            echo json_encode($respuesta);
+            break;
 
         case "eliminar":
-            if(isset($_GET["id"])){
-                $id = $_GET["id"];
-                $libro = new LibroModel();
-                $eliminar =  $libro->eliminar($id);
+            if(isset($_POST["id"])){
+
+                $libro->setId($_POST["id"]);
+                $eliminar =  $libro->eliminar();
+
                 if($eliminar){
-                    $_SESSION["alert"] = ["tipo" => "success", "mensaje" => "Libro eliminado con éxito"];
-                    header('Location: LibroController.php');
+                    $respuesta = 
+                    [
+                        "success" => "ok",
+                        "message" => "Libro eliminado",
+                        "data" => []
+                    ];
+                    // La json_encode convierte elementos de PHP a formato JSON
+                    echo json_encode($respuesta);
                 }else{
-                    $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "Libro no eliminado"];
+                    $respuesta = 
+                    [
+                        "success" => "ok",
+                        "message" => "Libro no encontrado",
+                        "data" => []
+                    ];
+                    // La json_encode convierte elementos de PHP a formato JSON
+                    echo json_encode($respuesta);
                 }
             }else{
-                $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "No sé a quien eliminar"];
-                header('Location: LibroController.php');
+                $respuesta = 
+                [
+                    "success" => "no",
+                    "message" => "No se envió el ID",
+                    "data" => []
+                ];
+                echo json_encode($respuesta);
             }
             break;
 

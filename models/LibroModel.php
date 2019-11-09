@@ -77,6 +77,8 @@ class LibroModel{
         $consultaDeBaseDeDatos = $this->db->query("SELECT * FROM libro");
         $listaDeBaseDeDatos = $consultaDeBaseDeDatos->fetchAll();
 
+        // El siguiente código se usa si la lista va a ser gestionada por PHP
+        /*
         $listaDondeGuardarObjetosDeTipoLibro = [];
 
         foreach ($listaDeBaseDeDatos as $filaParaCrearUnLibro) {
@@ -91,6 +93,8 @@ class LibroModel{
             $listaDondeGuardarObjetosDeTipoLibro[] = $objetoLibro;
         }
         return $listaDondeGuardarObjetosDeTipoLibro;
+        */
+        return $listaDeBaseDeDatos;
     }
 
     public function consultar(){
